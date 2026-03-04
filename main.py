@@ -8,16 +8,17 @@ load_dotenv()
 TOKEN = os.getenv('TG_BOT_TOKEN')
 bot = telebot.TeleBot(TOKEN)
 
-# Новое регулярное выражение:
-# (https?://)?      - протокол (группа 1)
-# ([\w-]+\.)* - любые поддомены, например 'vt.', 'www.' (группа 2)
-# (instagram\.com|tiktok\.com) - основной домен (группа 3)
-# (\S*)             - путь и аргументы (группа 4)
-PATTERN = r'(https?://)?([\w-]+\.)*(instagram\.com|tiktok\.com)(\S*)'
+# Компилируем регулярное выражение один раз при запуске скрипта
+# Группа 1: Протокол (http/https)
+# Группа 2: Все поддомены (включая точку на конце, например 'vt.' или 'www.')
+# Группа 3: Основной домен (instagram.com или tiktok.com)
+# Группа 4: Путь и параметры
+URL_PATTERN = re.compile(r'(https?://)?((?:[\w-]+\.)*)(instagram\.com|tiktok\.com)(\S*)')
 
 @bot.message_handler(content_types=['text'])
 def replace_links(message):
-    match = re.search(PATTERN, message.text)
+    match = URL_PATTERN.search(message.text)
+    
     if not match:
         return
 
