@@ -11,12 +11,6 @@ CONFIG = {
     'SHOW_PRETTY_LINK': True,
     'SEND_AS_REPLY': False,
     'attach_user_text': True,
-    
-    'REPLY_TEMPLATE': """{hidden_url_preview}
-{user_message}
-
-{pretty_url}
-{author}"""
 }
 
 TOKEN = os.getenv('TG_BOT_TOKEN')
@@ -65,14 +59,16 @@ def replace_links(message):
         user = message.from_user
         full_name = f"{user.first_name} {user.last_name if user.last_name else ''}".strip()
         author = f'<a href="tg://user?id={user.id}">👤 {full_name}</a>'
+    
 
-    final_text = CONFIG['REPLY_TEMPLATE'].format(
-        hidden_url_preview=hidden_url_preview,
-        user_message=user_message,
-        pretty_url=pretty_url,
-        author=author
-    )
-
+    parts = [
+        hidden_url_preview,
+        user_message + "\n" if user_message else None,
+        pretty_url if pretty_url else None,
+        author if author else None
+    ]
+    parts = [part for part in parts if part is not None]
+    final_text = "\n".join(parts)
     final_text = final_text.replace("\n"*3, "\n"*2).strip().strip("\n")
 
     reply_to = message.message_id if CONFIG['SEND_AS_REPLY'] else None
