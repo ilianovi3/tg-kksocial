@@ -33,6 +33,7 @@ fi
 # 4. Установка Docker Compose
 echo "🛠 Установка Docker Compose..."
 sudo apt install -y docker-compose-plugin
+sudo apt install docker-compose -y
 
 # 5. Установка Poetry
 if ! command -v poetry &> /dev/null
