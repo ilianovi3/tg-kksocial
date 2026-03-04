@@ -63,6 +63,11 @@ def replace_links(message):
         reply_text += f"{link_part}\n\nОтправлено: {author_part}"
     else:
         reply_text += author_part + link_part
+    
+    if not CONFIG['SHOW_AUTHOR'] and not CONFIG['SHOW_PRETTY_LINK']:
+        reply_text += "."
+
+    print(reply_text)
 
     # Определяем, отвечать реплаем или нет
     reply_to = message.message_id if CONFIG['SEND_AS_REPLY'] else None
