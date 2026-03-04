@@ -28,6 +28,7 @@ git clone https://github.com/ilianovi3/telegram-kksocial tg-kksocial
 cd tg-kksocial
 chmod +x install.sh
 ./install.sh
+cp .env.example .env
 ```
 
 ### Запуск
