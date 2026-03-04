@@ -50,7 +50,7 @@ def replace_links(message):
     user_comment = ""
     if CONFIG['attach_user_text']:
         # Удаляем все вхождения ссылок из текста и делаем strip
-        user_comment = URL_PATTERN.sub('', message.text).strip()
+        user_comment = URL_PATTERN.sub('', message.text).strip().replace("\n\n", "\n").strip("\n")
 
     # 3. Добавляем имя, если это группа и настройка включена
     is_private = message.chat.type == 'private'
@@ -64,7 +64,7 @@ def replace_links(message):
     # 4. Добавляем ссылку, если включено
     link_part = ""
     if CONFIG['SHOW_PRETTY_LINK']:
-        link_part = f'🔗 <a href="{full_original_url}">{pretty_url}</a>'
+        link_part = f'<a href="{full_original_url}">🔗 {pretty_url}</a>'
 
     # Собираем основные части (ссылка + автор)
     meta_info = ""
