@@ -4,7 +4,6 @@
 
 ### 1. README.md
 
-```markdown
 # 🚀 Social Link Fixer Bot
 
 Telegram-бот на базе `pyTelegramBotAPI`, который автоматически исправляет ссылки **Instagram** и **TikTok**, добавляя префикс `kk` к домену. Это позволяет корректно отображать предпросмотр видео в Telegram.
