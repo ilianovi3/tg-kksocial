@@ -5,6 +5,10 @@ set -e
 
 echo "🚀 Начинаем установку окружения для бота..."
 
+chmod +x start.sh
+chmod +x stop.sh
+chmod +x update.sh
+
 # 1. Обновление системы
 echo "🔄 Обновление пакетов..."
 sudo apt update && sudo apt upgrade -y
