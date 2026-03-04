@@ -7,9 +7,9 @@ load_dotenv()
 
 # --- CONFIGURATION ---
 CONFIG = {
-    'SHOW_AUTHOR': False,         # Показывать имя отправителя в группах
-    'DELETE_ORIGINAL': False,     # Удалять сообщение пользователя
-    'SHOW_PRETTY_LINK': False,    # Отображать текстовую ссылку под превью
+    'SHOW_AUTHOR': True,         # Показывать имя отправителя в группах
+    'DELETE_ORIGINAL': True,     # Удалять сообщение пользователя
+    'SHOW_PRETTY_LINK': True,    # Отображать текстовую ссылку под превью
     'SEND_AS_REPLY': False       # Отправлять как ответ (reply) на сообщение
 }
 
