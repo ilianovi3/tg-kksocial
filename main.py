@@ -39,7 +39,7 @@ def replace_links(message):
     # Формируем компоненты
     hidden_url = f"{protocol}{subdomains}kk{main_domain}{path}"
     full_original_url = f"{protocol}{subdomains}{main_domain}{path}"
-    pretty_url = f"{protocol}{subdomains}{main_domain}{path_no_args}"
+    pretty_url = f"{protocol}{subdomains}{main_domain}{path_no_args}".rstrip("/")
     
     # --- Сборка сообщения ---
     # 1. Скрытая ссылка для превью (всегда есть)
@@ -60,7 +60,7 @@ def replace_links(message):
 
     # Собираем части вместе
     if author_part and link_part:
-        reply_text += f"{link_part}\n\nОтправлено: {author_part}"
+        reply_text += f"{link_part}\n\n@{author_part}"
     else:
         reply_text += author_part + link_part
     
