@@ -40,7 +40,7 @@ def replace_links(message):
     # Формируем компоненты
     hidden_url = f"{protocol}{subdomains}kk{main_domain}{path}"
     full_original_url = f"{protocol}{subdomains}{main_domain}{path}"
-    pretty_url = f"{protocol}{subdomains}{main_domain}{path_no_args}".rstrip("/")
+    pretty_url = f"{main_domain}{path_no_args}".rstrip("/")
     
     # --- Сборка сообщения ---
     # 1. Скрытая ссылка для превью (всегда есть)
