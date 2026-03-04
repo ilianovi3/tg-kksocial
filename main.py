@@ -83,7 +83,7 @@ def replace_links(message):
         author=author
     )
 
-    final_text = final_text.replace("\n"*3, "\n"*2)
+    final_text = final_text.replace("\n"*3, "\n"*2).strip().strip("\n")
 
     # 4. Отправка
     reply_to = message.message_id if CONFIG['SEND_AS_REPLY'] else None
