@@ -1,4 +1,4 @@
-# 🚀 TG KKSOCIAL
+# 🚀 TG KKSocial
 
 Telegram-бот на базе `pyTelegramBotAPI`, который автоматически исправляет ссылки **Instagram** и **TikTok**, добавляя префикс `kk` к домену. Это позволяет корректно отображать предпросмотр видео в Telegram.
 
