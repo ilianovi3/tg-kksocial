@@ -56,6 +56,7 @@ def replace_links(message):
         except Exception as e:
             print(f"Не удалось удалить сообщение: {e}")
 
+
 if __name__ == '__main__':
     print("Бот запущен и готов к работе...")
     bot.infinity_polling()
