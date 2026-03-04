@@ -20,6 +20,7 @@ CONFIG = {
     # {author}             - ссылка на автора
     'REPLY_TEMPLATE': """{hidden_url_preview}
 {user_message}
+
 {pretty_url}
 {author}"""
 }
