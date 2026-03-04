@@ -62,13 +62,12 @@ def replace_links(message):
     
 
     parts = [
-        hidden_url_preview,
         user_message + "\n" if user_message else None,
         pretty_url if pretty_url else None,
         author if author else None
     ]
     parts = [part for part in parts if part is not None]
-    final_text = "\n".join(parts)
+    final_text = hidden_url_preview + "\n".join(parts)
     final_text = final_text.replace("\n"*3, "\n"*2).strip().strip("\n")
 
     reply_to = message.message_id if CONFIG['SEND_AS_REPLY'] else None
