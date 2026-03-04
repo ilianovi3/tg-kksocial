@@ -48,7 +48,7 @@ def replace_links(message):
     path_no_args = path.split("?")[0]
     hidden_url = f"{protocol}{subdomains}kk{main_domain}{path}"
     full_original_url = f"{protocol}{subdomains}{main_domain}{path}"
-    pretty_link_text = f"{protocol}{subdomains}{main_domain}{path_no_args}".rstrip("/")
+    pretty_link_text = f"{main_domain}{path_no_args}".rstrip("/")
 
     # 2. Подготовка данных для шаблона
     
