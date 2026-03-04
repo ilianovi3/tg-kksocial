@@ -51,7 +51,7 @@ def replace_links(message):
     if not is_private and CONFIG['SHOW_AUTHOR']:
         user = message.from_user
         full_name = f"{user.first_name} {user.last_name if user.last_name else ''}".strip()
-        author_part = f'<a href="tg://user?id={user.id}">{full_name}</a>'
+        author_part = f'<a href="tg://user?id={user.id}">@{full_name}</a>'
 
     # 3. Добавляем ссылку, если включено
     link_part = ""
@@ -60,7 +60,7 @@ def replace_links(message):
 
     # Собираем части вместе
     if author_part and link_part:
-        reply_text += f"{link_part}\n\n@{author_part}"
+        reply_text += f"{link_part}\n\n{author_part}"
     else:
         reply_text += author_part + link_part
     
