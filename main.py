@@ -83,9 +83,7 @@ def replace_links(message):
         author=author
     )
 
-    # Чистим пустые строки, сохраняя невидимый символ
-    lines = [line.strip() for line in final_text.splitlines() if line.strip() or '&#8203;' in line]
-    final_text = "\n".join(lines)
+    final_text = final_text.replace("\n"*3, "\n"*2)
 
     # 4. Отправка
     reply_to = message.message_id if CONFIG['SEND_AS_REPLY'] else None
