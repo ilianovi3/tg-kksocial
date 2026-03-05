@@ -2,6 +2,8 @@ import os
 import re
 import telebot
 from dotenv import load_dotenv
+from datetime import datetime
+
 
 load_dotenv()
 
@@ -13,7 +15,20 @@ CONFIG = {
     'attach_user_text': True,
 }
 
+WEEKDAYS_NAMES = {
+    0: "Понедельник",
+    1: "Вторник",
+    2: "Среда",
+    3: "Четверг",
+    4: "Пятница",
+    5: "Суббота",
+    6: "Воскресенье",
+}
+
 TOKEN = os.getenv('TG_BOT_TOKEN')
+if not TOKEN:
+    raise ValueError("TG_BOT_TOKEN is not set")
+
 bot = telebot.TeleBot(TOKEN)
 
 # group(1) - протокол, group(2) - поддомены, group(3) - опциональный kk, group(4) - домен, group(5) - путь
@@ -85,6 +100,16 @@ def replace_links(message):
             
     except Exception as e:
         print(f"Error: {e}")
+
+
+@bot.message_handler(commands=['dota'])
+def dota(message):
+    weekday = datetime.now().weekday()
+    is_weekend = weekday >= 5
+
+    response_text = f'{"Да" if is_weekend else "Нет"}, сегодня {WEEKDAYS_NAMES[weekday]}'
+    bot.reply_to(message, response_text)
+
 
 if __name__ == '__main__':
     print(f"🚀 Бот запущен")
