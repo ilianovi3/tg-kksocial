@@ -34,6 +34,15 @@ bot = telebot.TeleBot(TOKEN)
 # group(1) - протокол, group(2) - поддомены, group(3) - опциональный kk, group(4) - домен, group(5) - путь
 URL_PATTERN = re.compile(r'(?i)(?<!\w)(https?://)?((?:[\w-]+\.)*)(kk)?(instagram\.com|tiktok\.com)(\S*)')
 
+@bot.message_handler(commands=['dota'])
+def dota(message):
+    weekday = datetime.now().weekday()
+    is_weekend = weekday >= 5
+
+    response_text = f'{"Да" if is_weekend else "Нет"}, сегодня {WEEKDAYS_NAMES[weekday]}'
+    bot.reply_to(message, response_text)
+
+
 @bot.message_handler(content_types=['text'])
 def replace_links(message):
     match = URL_PATTERN.search(message.text)
@@ -100,15 +109,6 @@ def replace_links(message):
             
     except Exception as e:
         print(f"Error: {e}")
-
-
-@bot.message_handler(commands=['dota'])
-def dota(message):
-    weekday = datetime.now().weekday()
-    is_weekend = weekday >= 5
-
-    response_text = f'{"Да" if is_weekend else "Нет"}, сегодня {WEEKDAYS_NAMES[weekday]}'
-    bot.reply_to(message, response_text)
 
 
 if __name__ == '__main__':
