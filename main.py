@@ -55,7 +55,8 @@ def announce(message):
 
     bot.send_message(
         chat_id=chat_id,
-        text=message_text
+        text=message_text,
+        parse_mode='HTML'
         )
 
 
