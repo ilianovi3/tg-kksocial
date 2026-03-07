@@ -33,6 +33,7 @@ bot = telebot.TeleBot(TOKEN)
 
 # group(1) - протокол, group(2) - поддомены, group(3) - опциональный kk, group(4) - домен, group(5) - путь
 URL_PATTERN = re.compile(r'(?i)(?<!\w)(https?://)?((?:[\w-]+\.)*)(kk)?(instagram\.com|tiktok\.com)(\S*)')
+ADMIN_IDS = '5425201375,87467579'.split(",")
 
 @bot.message_handler(commands=['dota'])
 def dota(message):
@@ -41,6 +42,21 @@ def dota(message):
 
     response_text = f'{"Да" if is_weekend else "Нет"}, сегодня {WEEKDAYS_NAMES[weekday]}'
     bot.reply_to(message, response_text)
+
+
+@bot.message_handler(commands=['announce'])
+def announce(message):
+    if str(message.chat.id) not in ADMIN_IDS:
+        return
+    
+    user_message = message.text.strip()
+    chat_id = user_message.split(" ")[1]
+    message_text = " ".join(user_message.split(" ")[2:])
+
+    bot.send_message(
+        chat_id=chat_id,
+        text=message_text
+        )
 
 
 @bot.message_handler(content_types=['text'])
