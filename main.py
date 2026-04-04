@@ -8,12 +8,13 @@ from datetime import datetime
 load_dotenv()
 
 CONFIG = {
-    'SHOW_AUTHOR': True,
-    'DELETE_ORIGINAL': True,
-    'SHOW_PRETTY_LINK': True,
-    'SEND_AS_REPLY': False,
-    'attach_user_text': True,
+    'SHOW_AUTHOR': os.getenv('SHOW_AUTHOR', '1') == '1',
+    'DELETE_ORIGINAL': os.getenv('DELETE_ORIGINAL', '1') == '1',
+    'SHOW_PRETTY_LINK': os.getenv('SHOW_PRETTY_LINK', '1') == '1',
+    'SEND_AS_REPLY': os.getenv('SEND_AS_REPLY', '0') == '1',
+    'ATTACH_USER_TEXT': os.getenv('ATTACH_USER_TEXT', '1') == '1',
 }
+
 
 WEEKDAYS_NAMES = {
     0: "Понедельник",
@@ -33,7 +34,7 @@ bot = telebot.TeleBot(TOKEN)
 
 # group(1) - протокол, group(2) - поддомены, group(3) - опциональный kk, group(4) - домен, group(5) - путь
 URL_PATTERN = re.compile(r'(?i)(?<!\w)(https?://)?((?:[\w-]+\.)*)(kk)?(instagram\.com|tiktok\.com)(\S*)')
-ADMIN_IDS = '5425201375,87467579'.split(",")
+ADMIN_IDS = os.getenv('ADMIN_IDS', '').split(",")
 
 @bot.message_handler(commands=['dota'])
 def dota(message):
@@ -60,6 +61,7 @@ def announce(message):
         )
 
 
+
 @bot.message_handler(content_types=['text'])
 def replace_links(message):
     match = URL_PATTERN.search(message.text)
@@ -71,13 +73,18 @@ def replace_links(message):
     
     subdomains = match.group(2) if match.group(2) else ""
     # group(3) — это kk, нам оно не нужно при построении URL
+    preview_domain = ""
     main_domain = match.group(4).lower()
+    if "instagram" in main_domain:
+        preview_domain = "kksave.com"
+    else:
+        preview_domain = "kk" + main_domain
     path = match.group(5) if match.group(5) else ""
     
     path_no_args = path.split("?")[0]
 
     # Превью-ссылка — всегда с kk
-    hidden_url = f"{fixed_protocol}{subdomains}kk{main_domain}{path}"
+    hidden_url = f"{fixed_protocol}{subdomains}{preview_domain}{path}"
     
     # Оригинальная ссылка — всегда без kk
     full_original_url = f"{fixed_protocol}{subdomains}{main_domain}{path}"
@@ -88,7 +95,7 @@ def replace_links(message):
     hidden_url_preview = f'<a href="{hidden_url}">&#8203;</a>'
     
     user_message = ""
-    if CONFIG['attach_user_text']:
+    if CONFIG['ATTACH_USER_TEXT']:
         user_message = URL_PATTERN.sub('', message.text).strip()
     
     pretty_url = ""
