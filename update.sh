@@ -6,12 +6,12 @@ set -e
 echo "🚀 Начинаю процесс обновления..."
 
 # Переходим в рабочую директорию
-cd /srv/tg-kksocial
+cd /srv/tg-kksave
 
 echo "🛑 Останавливаю контейнеры..."
 docker-compose down
 
-echo "📥 Обновляю tg-kksocial..."
+echo "📥 Обновляю tg-kksave..."
 git pull
 
 echo "🛠 Собираю образы и запускаю сервисы..."
