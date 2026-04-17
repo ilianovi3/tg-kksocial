@@ -75,10 +75,8 @@ def replace_links(message):
     # group(3) — это kk, нам оно не нужно при построении URL
     preview_domain = ""
     main_domain = match.group(4).lower()
-    if "instagram" in main_domain:
-        preview_domain = "kksave.com"
-    else:
-        preview_domain = "kk" + main_domain
+    preview_domain = "kksave.com"
+    
     path = match.group(5) if match.group(5) else ""
     
     path_no_args = path.split("?")[0]
